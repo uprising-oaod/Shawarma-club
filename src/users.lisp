@@ -35,4 +35,5 @@
    (select :*
      (from :users)
      (where (:and (:= :name name)
-                  (:= :password pass))))))
+                  ;(:= :password pass)
+                  )))))

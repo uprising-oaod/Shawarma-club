@@ -2,6 +2,8 @@
 (defpackage shawarma.orders
   (:use :cl :shawarma.models :sxql :datafly :shawarma.utils :shawarma.users)
   (:export :create-order
+   :clear-orders
+   :delete-order
            :make-order))
 
 (in-package :shawarma.orders)
@@ -12,6 +14,20 @@
      (from :orders)
      (where (:= :user user)))
    :as 'orders))
+
+(defun clear-orders (user pass)
+  (when (and (equalp user "Маша")
+             (login-user user pass))
+    (execute
+     (delete-from :orders
+       (where (:like :user "%%"))))))
+
+(defun delete-order (user pass)
+  (if (login-user user pass)
+      (execute
+       (delete-from :orders
+         (where (:= :user user))))
+      "Not authorized"))
 
 (defun make-order (user pass order)
   (if (login-user user pass)

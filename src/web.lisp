@@ -68,6 +68,12 @@
 (defroute ("/api/orders" :method :POST) (&key |user| |pass| |order|)
   (render-json (make-order |user| |pass| |order|)))
 
+(defroute ("/api/orders" :method :DELETE) (&key |user| |pass|)
+  (render-json (delete-order |user| |pass|)))
+
+(defroute ("/api/day" :method :POST) (&key |user| |pass|)
+  (render-json (clear-orders |user| |pass|)))
+
 ;;
 ;; Error pages
 
